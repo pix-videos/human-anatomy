@@ -8,7 +8,7 @@ const organData = {
     heart: {
         title: 'Human Heart',
         system: 'Cardiovascular System',
-        model: 'https://modelviewer.dev/shared-assets/models/Astronaut.glb', // Replace with heart model
+        model: 'https://static.poly.pizza/41fe734e-c012-46bd-a95c-dbef729befec.glb', // Heart model by Poly by Google
         overview: 'The heart is a muscular organ roughly the size of a closed fist. It sits in the chest, slightly left of center, and functions as the body\'s circulatory pump. The heart beats about 100,000 times per day, pumping approximately 2,000 gallons of blood.',
         stats: [
             { value: '300g', label: 'Average Weight' },
@@ -31,7 +31,7 @@ const organData = {
     brain: {
         title: 'Human Brain',
         system: 'Nervous System',
-        model: 'https://modelviewer.dev/shared-assets/models/RobotExpressive.glb', // Replace with brain model
+        model: 'https://static.poly.pizza/f16b3b74-1fdd-47a6-b7cd-cdf0d6f10058.glb', // Brain model by Poly by Google
         overview: 'The brain is the command center of the human nervous system. Weighing about 3 pounds, it contains roughly 86 billion neurons that communicate through trillions of connections called synapses. It controls thought, memory, emotion, touch, motor skills, and every process that regulates our body.',
         stats: [
             { value: '1.4kg', label: 'Average Weight' },
@@ -54,7 +54,7 @@ const organData = {
     lungs: {
         title: 'Human Lungs',
         system: 'Respiratory System',
-        model: 'https://modelviewer.dev/shared-assets/models/MaterialsVariantsShoe.glb', // Replace with lungs model
+        model: 'https://static.poly.pizza/e30ab49f-c137-4f7e-92f5-bbf6abefa1ac.glb', // Kidneys model by Poly by Google (anatomical placeholder)
         overview: 'The lungs are a pair of spongy, air-filled organs located on either side of the chest. They are responsible for gas exchange—bringing oxygen into the body and removing carbon dioxide. The right lung is slightly larger than the left, which has to accommodate the heart.',
         stats: [
             { value: '6L', label: 'Total Capacity' },

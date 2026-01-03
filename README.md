@@ -113,7 +113,10 @@ MIT License - feel free to use this for educational purposes.
 ## 🙏 Credits
 
 - Background Image: [Robina Weermeijer on Unsplash](https://unsplash.com/@averey) - Medical/anatomical photography
-- 3D Models: Placeholder models from [Model-Viewer Examples](https://modelviewer.dev/)
+- 3D Models from [Poly Pizza](https://poly.pizza):
+    - Heart: [Poly by Google](https://poly.pizza/m/8RA5hHU5gHK) (CC BY)
+    - Brain: [Poly by Google](https://poly.pizza/m/5mPRPZkI3qt) (CC BY)
+    - Lungs: [Poly by Google](https://poly.pizza/m/fF04IGr3X6q) - Kidneys model as anatomical placeholder (CC BY)
 - Fonts: [Google Fonts](https://fonts.google.com/)
 - Design inspiration: Medical textbooks and anatomical illustrations
 
