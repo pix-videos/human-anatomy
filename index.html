@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Human Anatomy Explorer | Interactive 3D Organ Viewer</title>
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.3.0/model-viewer.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Nunito+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="organic-bg">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <svg class="logo-icon" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M25 5C25 5 15 15 15 25C15 35 25 45 25 45C25 45 35 35 35 25C35 15 25 5 25 5Z" stroke="currentColor" stroke-width="2"/>
+                        <path d="M25 15C25 15 20 20 20 25C20 30 25 35 25 35C25 35 30 30 30 25C30 20 25 15 25 15Z" fill="currentColor" opacity="0.3"/>
+                        <circle cx="25" cy="25" r="3" fill="currentColor"/>
+                    </svg>
+                    <span>AnatomyLab</span>
+                </div>
+            </div>
+
+            <nav class="organ-nav">
+                <h2>Select Organ</h2>
+                <ul class="organ-list">
+                    <li>
+                        <button class="organ-btn active" data-organ="heart">
+                            <span class="organ-icon">🫀</span>
+                            <span class="organ-name">Heart</span>
+                            <span class="organ-system">Cardiovascular</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="organ-btn" data-organ="brain">
+                            <span class="organ-icon">🧠</span>
+                            <span class="organ-name">Brain</span>
+                            <span class="organ-system">Nervous</span>
+                        </button>
+                    </li>
+                    <li>
+                        <button class="organ-btn" data-organ="lungs">
+                            <span class="organ-icon">🫁</span>
+                            <span class="organ-name">Lungs</span>
+                            <span class="organ-system">Respiratory</span>
+                        </button>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <p>Interactive Medical Education</p>
+                <p class="credits">3D Models CC Licensed</p>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="main-header">
+                <div class="breadcrumb">
+                    <span>Anatomy</span>
+                    <span class="separator">/</span>
+                    <span id="currentSystem">Cardiovascular System</span>
+                </div>
+                <h1 id="organTitle">Human Heart</h1>
+            </header>
+
+            <div class="content-grid">
+                <!-- 3D Viewer Panel -->
+                <section class="viewer-panel">
+                    <div class="viewer-container">
+                        <model-viewer
+                            id="organViewer"
+                            src="https://modelviewer.dev/shared-assets/models/Astronaut.glb"
+                            camera-controls
+                            auto-rotate
+                            rotation-per-second="30deg"
+                            shadow-intensity="1"
+                            exposure="1"
+                            environment-image="neutral"
+                            alt="3D Organ Model"
+                        >
+                            <div class="model-loading" slot="poster">
+                                <div class="pulse-loader"></div>
+                                <p>Loading anatomy model...</p>
+                            </div>
+                        </model-viewer>
+                        
+                        <div class="viewer-toolbar">
+                            <button class="toolbar-btn" id="toggleRotate" title="Toggle Rotation">
+                                <svg viewBox="0 0 24 24"><path d="M12 6v3l4-4-4-4v3c-4.42 0-8 3.58-8 8 0 1.57.46 3.03 1.24 4.26L6.7 14.8c-.45-.83-.7-1.79-.7-2.8 0-3.31 2.69-6 6-6zm6.76 1.74L17.3 9.2c.44.84.7 1.79.7 2.8 0 3.31-2.69 6-6 6v-3l-4 4 4 4v-3c4.42 0 8-3.58 8-8 0-1.57-.46-3.03-1.24-4.26z"/></svg>
+                            </button>
+                            <button class="toolbar-btn" id="resetCamera" title="Reset View">
+                                <svg viewBox="0 0 24 24"><path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/></svg>
+                            </button>
+                            <div class="toolbar-divider"></div>
+                            <button class="toolbar-btn" id="zoomIn" title="Zoom In">
+                                <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                            </button>
+                            <button class="toolbar-btn" id="zoomOut" title="Zoom Out">
+                                <svg viewBox="0 0 24 24"><path d="M19 13H5v-2h14v2z"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="view-instructions">
+                        <span class="instruction">🖱️ Drag to rotate</span>
+                        <span class="instruction">⚲ Scroll to zoom</span>
+                        <span class="instruction">⇧ Shift+drag to pan</span>
+                    </div>
+                </section>
+
+                <!-- Information Panel -->
+                <section class="info-panel">
+                    <div class="info-card overview-card">
+                        <h3>Overview</h3>
+                        <p id="organOverview">
+                            The heart is a muscular organ roughly the size of a closed fist. It sits in the chest, slightly left of center, and functions as the body's circulatory pump.
+                        </p>
+                    </div>
+
+                    <div class="info-card stats-card">
+                        <h3>Key Statistics</h3>
+                        <div class="stats-grid" id="organStats">
+                            <div class="stat-item">
+                                <span class="stat-value">300g</span>
+                                <span class="stat-label">Average Weight</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">100k</span>
+                                <span class="stat-label">Beats per Day</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">5L</span>
+                                <span class="stat-label">Blood per Minute</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">4</span>
+                                <span class="stat-label">Chambers</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-card functions-card">
+                        <h3>Primary Functions</h3>
+                        <ul class="functions-list" id="organFunctions">
+                            <li>Pumps oxygenated blood throughout the body</li>
+                            <li>Returns deoxygenated blood to the lungs</li>
+                            <li>Maintains blood pressure</li>
+                            <li>Regulates circulation speed based on activity</li>
+                        </ul>
+                    </div>
+
+                    <div class="info-card anatomy-card">
+                        <h3>Anatomical Structures</h3>
+                        <div class="anatomy-list" id="organAnatomy">
+                            <div class="anatomy-item">
+                                <span class="anatomy-marker" style="--color: #e74c3c"></span>
+                                <div class="anatomy-details">
+                                    <strong>Left Ventricle</strong>
+                                    <p>Pumps blood to the body through the aorta</p>
+                                </div>
+                            </div>
+                            <div class="anatomy-item">
+                                <span class="anatomy-marker" style="--color: #3498db"></span>
+                                <div class="anatomy-details">
+                                    <strong>Right Ventricle</strong>
+                                    <p>Pumps blood to the lungs for oxygenation</p>
+                                </div>
+                            </div>
+                            <div class="anatomy-item">
+                                <span class="anatomy-marker" style="--color: #9b59b6"></span>
+                                <div class="anatomy-details">
+                                    <strong>Atria</strong>
+                                    <p>Upper chambers receiving blood flow</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
