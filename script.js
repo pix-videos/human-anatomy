@@ -8,7 +8,7 @@ const organData = {
     heart: {
         title: 'Human Heart',
         system: 'Cardiovascular System',
-        model: 'https://modelviewer.dev/shared-assets/models/Astronaut.glb', // Astronaut model from Model-Viewer examples
+        model: './models/heart.glb', // Place your heart GLB model in the models/ folder
         overview: 'The heart is a muscular organ roughly the size of a closed fist. It sits in the chest, slightly left of center, and functions as the body\'s circulatory pump. The heart beats about 100,000 times per day, pumping approximately 2,000 gallons of blood.',
         stats: [
             { value: '300g', label: 'Average Weight' },
@@ -31,7 +31,7 @@ const organData = {
     brain: {
         title: 'Human Brain',
         system: 'Nervous System',
-        model: 'https://modelviewer.dev/shared-assets/models/RobotExpressive.glb', // RobotExpressive model from Model-Viewer examples
+        model: './models/brain.glb', // Place your brain GLB model in the models/ folder
         overview: 'The brain is the command center of the human nervous system. Weighing about 3 pounds, it contains roughly 86 billion neurons that communicate through trillions of connections called synapses. It controls thought, memory, emotion, touch, motor skills, and every process that regulates our body.',
         stats: [
             { value: '1.4kg', label: 'Average Weight' },
@@ -54,7 +54,7 @@ const organData = {
     lungs: {
         title: 'Human Lungs',
         system: 'Respiratory System',
-        model: 'https://modelviewer.dev/shared-assets/models/Horse.glb', // Horse model from Model-Viewer examples
+        model: './models/lungs.glb', // Place your lungs GLB model in the models/ folder
         overview: 'The lungs are a pair of spongy, air-filled organs located on either side of the chest. They are responsible for gas exchange—bringing oxygen into the body and removing carbon dioxide. The right lung is slightly larger than the left, which has to accommodate the heart.',
         stats: [
             { value: '6L', label: 'Total Capacity' },
