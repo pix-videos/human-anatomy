@@ -171,7 +171,7 @@ function loadOrgan(organId) {
 
 // Keyboard navigation
 document.addEventListener('keydown', (e) => {
-    const organs = ['heart', 'brain', 'lungs'];
+    const organs = ['lungs', 'heart', 'brain'];
     const keys = ['1', '2', '3'];
     
     const index = keys.indexOf(e.key);
