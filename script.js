@@ -92,19 +92,7 @@ let currentOrgan = 'heart';
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
     setupOrganNavigation();
-    setupViewerControls();
     loadOrgan('heart');
-    
-    // Update play/pause icon based on video state
-    viewer.addEventListener('play', () => {
-        playIcon.style.display = 'none';
-        pauseIcon.style.display = 'block';
-    });
-    
-    viewer.addEventListener('pause', () => {
-        playIcon.style.display = 'block';
-        pauseIcon.style.display = 'none';
-    });
 });
 
 // Setup organ button navigation
@@ -180,29 +168,6 @@ function loadOrgan(organId) {
     });
 }
 
-// Setup viewer toolbar controls
-function setupViewerControls() {
-    // Toggle play/pause
-    togglePlayBtn.addEventListener('click', () => {
-        if (viewer.paused) {
-            viewer.play();
-            playIcon.style.display = 'none';
-            pauseIcon.style.display = 'block';
-        } else {
-            viewer.pause();
-            playIcon.style.display = 'block';
-            pauseIcon.style.display = 'none';
-        }
-    });
-    
-    // Restart video
-    restartVideoBtn.addEventListener('click', () => {
-        viewer.currentTime = 0;
-        viewer.play().catch(() => {
-            // Autoplay was prevented
-        });
-    });
-}
 
 // Keyboard navigation
 document.addEventListener('keydown', (e) => {
@@ -221,10 +186,5 @@ document.addEventListener('keydown', (e) => {
         });
     }
     
-    // Spacebar to toggle play/pause
-    if (e.code === 'Space' && e.target === document.body) {
-        e.preventDefault();
-        togglePlayBtn.click();
-    }
 });
 
