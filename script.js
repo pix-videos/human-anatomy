@@ -1,14 +1,14 @@
 /**
  * Human Anatomy Explorer
- * Interactive 3D Organ Viewer
+ * Interactive Organ Video Viewer
  */
 
-// Organ data with 3D models and educational content
+// Organ data with videos and educational content
 const organData = {
     heart: {
         title: 'Human Heart',
         system: 'Cardiovascular System',
-        model: './models/heart.glb', // Place your heart GLB model in the models/ folder
+        video: './videos/video-heart.mp4',
         overview: 'The heart is a muscular organ roughly the size of a closed fist. It sits in the chest, slightly left of center, and functions as the body\'s circulatory pump. The heart beats about 100,000 times per day, pumping approximately 2,000 gallons of blood.',
         stats: [
             { value: '300g', label: 'Average Weight' },
@@ -31,7 +31,7 @@ const organData = {
     brain: {
         title: 'Human Brain',
         system: 'Nervous System',
-        model: './models/brain.glb', // Place your brain GLB model in the models/ folder
+        video: './videos/video-brain.mp4',
         overview: 'The brain is the command center of the human nervous system. Weighing about 3 pounds, it contains roughly 86 billion neurons that communicate through trillions of connections called synapses. It controls thought, memory, emotion, touch, motor skills, and every process that regulates our body.',
         stats: [
             { value: '1.4kg', label: 'Average Weight' },
@@ -54,7 +54,7 @@ const organData = {
     lungs: {
         title: 'Human Lungs',
         system: 'Respiratory System',
-        model: './models/lungs.glb', // Place your lungs GLB model in the models/ folder
+        video: './videos/video-lungs.mp4',
         overview: 'The lungs are a pair of spongy, air-filled organs located on either side of the chest. They are responsible for gas exchange—bringing oxygen into the body and removing carbon dioxide. The right lung is slightly larger than the left, which has to accommodate the heart.',
         stats: [
             { value: '6L', label: 'Total Capacity' },
@@ -85,20 +85,30 @@ const overviewEl = document.getElementById('organOverview');
 const statsEl = document.getElementById('organStats');
 const functionsEl = document.getElementById('organFunctions');
 const anatomyEl = document.getElementById('organAnatomy');
-const toggleRotateBtn = document.getElementById('toggleRotate');
-const resetCameraBtn = document.getElementById('resetCamera');
-const zoomInBtn = document.getElementById('zoomIn');
-const zoomOutBtn = document.getElementById('zoomOut');
+const togglePlayBtn = document.getElementById('togglePlay');
+const restartVideoBtn = document.getElementById('restartVideo');
+const playIcon = document.getElementById('playIcon');
+const pauseIcon = document.getElementById('pauseIcon');
 
 // State
 let currentOrgan = 'heart';
-let isRotating = true;
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
     setupOrganNavigation();
     setupViewerControls();
     loadOrgan('heart');
+    
+    // Update play/pause icon based on video state
+    viewer.addEventListener('play', () => {
+        playIcon.style.display = 'none';
+        pauseIcon.style.display = 'block';
+    });
+    
+    viewer.addEventListener('pause', () => {
+        playIcon.style.display = 'block';
+        pauseIcon.style.display = 'none';
+    });
 });
 
 // Setup organ button navigation
@@ -156,51 +166,45 @@ function loadOrgan(organId) {
         </div>
     `).join('');
     
-    // Load 3D model with transition
+    // Load video with transition
     viewer.style.opacity = '0.5';
-    viewer.src = data.model;
+    viewer.src = data.video;
     
-    viewer.addEventListener('load', function onLoad() {
+    viewer.addEventListener('loadeddata', function onLoad() {
         viewer.style.opacity = '1';
-        viewer.removeEventListener('load', onLoad);
+        viewer.play().catch(() => {
+            // Autoplay was prevented, user will need to click play
+        });
+        viewer.removeEventListener('loadeddata', onLoad);
+    });
+    
+    viewer.addEventListener('error', (e) => {
+        console.error('Error loading video:', e);
+        viewer.style.opacity = '1';
     });
 }
 
 // Setup viewer toolbar controls
 function setupViewerControls() {
-    // Toggle rotation
-    toggleRotateBtn.addEventListener('click', () => {
-        isRotating = !isRotating;
-        if (isRotating) {
-            viewer.setAttribute('auto-rotate', '');
-            toggleRotateBtn.classList.add('active');
+    // Toggle play/pause
+    togglePlayBtn.addEventListener('click', () => {
+        if (viewer.paused) {
+            viewer.play();
+            playIcon.style.display = 'none';
+            pauseIcon.style.display = 'block';
         } else {
-            viewer.removeAttribute('auto-rotate');
-            toggleRotateBtn.classList.remove('active');
+            viewer.pause();
+            playIcon.style.display = 'block';
+            pauseIcon.style.display = 'none';
         }
     });
     
-    // Set initial state
-    toggleRotateBtn.classList.add('active');
-    
-    // Reset camera
-    resetCameraBtn.addEventListener('click', () => {
-        viewer.cameraOrbit = 'auto auto auto';
-        viewer.cameraTarget = 'auto auto auto';
-        viewer.fieldOfView = 'auto';
-    });
-    
-    // Zoom controls
-    let currentFov = 45;
-    
-    zoomInBtn.addEventListener('click', () => {
-        currentFov = Math.max(10, currentFov - 10);
-        viewer.fieldOfView = `${currentFov}deg`;
-    });
-    
-    zoomOutBtn.addEventListener('click', () => {
-        currentFov = Math.min(90, currentFov + 10);
-        viewer.fieldOfView = `${currentFov}deg`;
+    // Restart video
+    restartVideoBtn.addEventListener('click', () => {
+        viewer.currentTime = 0;
+        viewer.play().catch(() => {
+            // Autoplay was prevented
+        });
     });
 }
 
@@ -221,10 +225,10 @@ document.addEventListener('keydown', (e) => {
         });
     }
     
-    // Spacebar to toggle rotation
+    // Spacebar to toggle play/pause
     if (e.code === 'Space' && e.target === document.body) {
         e.preventDefault();
-        toggleRotateBtn.click();
+        togglePlayBtn.click();
     }
 });
 
