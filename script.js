@@ -87,7 +87,7 @@ const functionsEl = document.getElementById('organFunctions');
 const anatomyEl = document.getElementById('organAnatomy');
 
 // State
-let currentOrgan = 'heart';
+let currentOrgan = 'lungs';
 
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
