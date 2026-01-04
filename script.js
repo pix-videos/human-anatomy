@@ -85,10 +85,6 @@ const overviewEl = document.getElementById('organOverview');
 const statsEl = document.getElementById('organStats');
 const functionsEl = document.getElementById('organFunctions');
 const anatomyEl = document.getElementById('organAnatomy');
-const togglePlayBtn = document.getElementById('togglePlay');
-const restartVideoBtn = document.getElementById('restartVideo');
-const playIcon = document.getElementById('playIcon');
-const pauseIcon = document.getElementById('pauseIcon');
 
 // State
 let currentOrgan = 'heart';
