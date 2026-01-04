@@ -92,7 +92,7 @@ let currentOrgan = 'heart';
 // Initialize
 document.addEventListener('DOMContentLoaded', () => {
     setupOrganNavigation();
-    loadOrgan('heart');
+    loadOrgan('lungs');
 });
 
 // Setup organ button navigation
